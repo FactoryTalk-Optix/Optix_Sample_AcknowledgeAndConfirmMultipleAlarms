@@ -90,15 +90,15 @@ Project:
    Module: FTOptix.SQLiteStore.Net
    Version: 1.0
  Statistics:
-  TotalNodeCount: 736
-  Objects: 180
-  ObjectTypes: 3
-  Variables: 551
+  TotalNodeCount: 816
+  Objects: 193
+  ObjectTypes: 4
+  Variables: 610
   VariableTypes: 0
   DataTypes: 0
-  Methods: 2
-  References: 54
+  Methods: 9
+  References: 55
   ReferenceTypes: 0
-  Files: 21
+  Files: 22
  Nodes:
  - File: Nodes/Optix_Sample_AcknowledgeAndConfirmMultipleAlarms.yaml

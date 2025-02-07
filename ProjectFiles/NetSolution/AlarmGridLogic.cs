@@ -8,10 +8,13 @@ using System;
 using FTOptix.EventLogger;
 using FTOptix.Store;
 using FTOptix.SQLiteStore;
+using System.Collections.Generic;
+using System.Linq;
 #endregion
 
 public class AlarmGridLogic : BaseNetLogic
 {
+    #region Start and Stop
     public override void Start()
     {
         alarmsDataGridModel = Owner.Get<DataGrid>("AlarmsDataGrid").GetVariable("Model");
@@ -25,6 +28,7 @@ public class AlarmGridLogic : BaseNetLogic
     {
         actualLanguageVariable.VariableChange -= OnSessionActualLanguageChange;
     }
+    #endregion
 
     #region Language change
 
@@ -49,25 +53,107 @@ public class AlarmGridLogic : BaseNetLogic
 
     #region Alarms operations
 
+    #region Methods to be called by the AlarmGrid
+    [ExportMethod]
+    public void AcknowledgeAllAlarmsWithDialog()
+    {
+        var myDialog = Project.Current.Get<DialogType>("UI/Templates/AckConfirmMessage");
+        var dialogInstance = UICommands.OpenDialog(Owner, myDialog);
+        dialogInstance.GetVariable("Action").Value = "Acknowledge";
+        dialogInstance.GetVariable("MethodName").Value = "AckAllAlarmsWithMessage";
+        dialogInstance.GetVariable("AlarmGridLogic").Value = LogicObject.NodeId;
+    }
+
+    [ExportMethod]
+    public void ConfirmAllAlarmsWithDialog()
+    {
+        var myDialog = Project.Current.Get<DialogType>("UI/Templates/AckConfirmMessage");
+        var dialogInstance = UICommands.OpenDialog(Owner, myDialog);
+        dialogInstance.GetVariable("Action").Value = "Confirm";
+        dialogInstance.GetVariable("MethodName").Value = "ConfirmAllAlarmsWithMessage";
+        dialogInstance.GetVariable("AlarmGridLogic").Value = LogicObject.NodeId;
+    }
+
+    [ExportMethod]
+    public void AcknowledgeSelectedAlarmsWithDialog()
+    {
+        var myDialog = Project.Current.Get<DialogType>("UI/Templates/AckConfirmMessage");
+        var dialogInstance = UICommands.OpenDialog(Owner, myDialog);
+        dialogInstance.GetVariable("Action").Value = "Acknowledge";
+        dialogInstance.GetVariable("MethodName").Value = "AckSelectedAlarmsWithMessage";
+        dialogInstance.GetVariable("AlarmGridLogic").Value = LogicObject.NodeId;
+    }
+
+    [ExportMethod]
+    public void ConfirmSelectedAlarmsWithDialog()
+    {
+        var myDialog = Project.Current.Get<DialogType>("UI/Templates/AckConfirmMessage");
+        var dialogInstance = UICommands.OpenDialog(Owner, myDialog);
+        dialogInstance.GetVariable("Action").Value = "Confirm";
+        dialogInstance.GetVariable("MethodName").Value = "ConfirmSelectedAlarmsWithMessage";
+        dialogInstance.GetVariable("AlarmGridLogic").Value = LogicObject.NodeId;
+    }
+    #endregion
+
+    #region Methods to be called by the DialogBox
     /// <summary>
     /// Acknowledges the selected alarms with a specified message.
     /// </summary>
-    /// <param name="ackMessage">The acknowledgment message.</param>
+    /// <param name="arguments">The object containing the message to be used in the alarm action.</param>
     [ExportMethod]
-    public void AckAlarmsWithMessage(LocalizedText ackMessage)
+    public void AckSelectedAlarmsWithMessage(object[] arguments)
     {
-        ProcessAlarms(ackMessage, (alarm, message) => alarm.Acknowledge(message));
+        var ackMessage = (LocalizedText) arguments[0];
+        var alarmsList = GetSelectedAlarms();
+        ProcessAlarms(ackMessage, alarmsList, (alarm, message) => alarm.Acknowledge(message));
     }
 
     /// <summary>
     /// Confirms the selected alarms with a specified message.
     /// </summary>
-    /// <param name="confirmMessage">The confirmation message.</param>
+    /// <param name="arguments">The object containing the message to be used in the alarm action.</param>
     [ExportMethod]
-    public void ConfirmAlarmsWithMessage(LocalizedText confirmMessage)
+    public void ConfirmSelectedAlarmsWithMessage(object[] arguments)
     {
-        ProcessAlarms(confirmMessage, (alarm, message) => alarm.Confirm(message));
+        var confirmMessage = (LocalizedText) arguments[0];
+        var alarmsList = GetSelectedAlarms();
+        ProcessAlarms(confirmMessage, alarmsList, (alarm, message) => alarm.Confirm(message));
     }
+
+    /// <summary>
+    /// Acknowledges all alarms with a specified message.
+    /// </summary>
+    /// <param name="arguments">The object containing the message to be used in the alarm action.</param>
+    [ExportMethod]
+    public void AckAllAlarmsWithMessage(object[] arguments)
+    {
+        var ackMessage = (LocalizedText) arguments[0];
+        var alarmsList = GetAllAlarms();
+        if (alarmsList.Count == 0)
+        {
+            Log.Warning("No alarms to acknowledge");
+            return;
+        }
+        ProcessAlarms(ackMessage, alarmsList, (alarm, message) => alarm.Acknowledge(message));
+    }
+
+    /// <summary>
+    /// Confirms all alarms with a specified message.
+    /// </summary>
+    /// <param name="arguments">The object containing the message to be used in the alarm action.</param>
+    [ExportMethod]
+    public void ConfirmAllAlarmsWithMessage(object[] arguments)
+    {
+        var confirmMessage = (LocalizedText) arguments[0];
+        var alarmsList = GetAllAlarms();
+        if (alarmsList.Count == 0)
+        {
+            Log.Warning("No alarms to confirm");
+            return;
+        }
+        ProcessAlarms(confirmMessage, alarmsList, (alarm, message) => alarm.Confirm(message));
+    }
+    #endregion
 
     #region Private methods
 
@@ -76,35 +162,63 @@ public class AlarmGridLogic : BaseNetLogic
     /// </summary>
     /// <param name="message">The message to be used for the action.</param>
     /// <param name="alarmAction">The action to be performed on the alarms.</param>
-    private void ProcessAlarms(LocalizedText message, Action<AlarmController, LocalizedText> alarmAction)
+    private static void ProcessAlarms(LocalizedText message, List<AlarmController> alarms, Action<AlarmController, LocalizedText> alarmAction)
     {
-        var dataGrid = Owner.Get<DataGrid>("AlarmsDataGrid");
-
-        if (dataGrid.GetVariable("AllowMultiSelection").Value)
+        foreach (var alarm in alarms)
         {
-            // Multi selection
-            var selectedItemsNodes = dataGrid.GetOptionalVariableValue("UISelectedItems") ?? throw new System.ArgumentException("UISelectedItems variable not found in AlarmsDataGrid");
-
-            var selectedItemsArray = (NodeId[]) selectedItemsNodes.Value;
-            if (selectedItemsArray == null || selectedItemsArray.Length == 0)
-            {
-                throw new System.ArgumentException("No alarms selected");
-            }
-
-            // Process each selected alarm
-            foreach (var nodeId in selectedItemsArray)
-            {
-                var alarm = GetAlarmFromRetainedAlarm(nodeId) ?? throw new System.ArgumentException("Alarm not found");
-                alarmAction(alarm, message);
-            }
-        }
-        else
-        {
-            // Single selection
-            var alarm = GetAlarmFromRetainedAlarm(dataGrid.UISelectedItem) ?? throw new System.ArgumentException("Alarm not found");
             alarmAction(alarm, message);
         }
     }
+
+    /// <summary>
+    /// Get the selected alarms from the data grid.
+    /// </summary>
+    private List<AlarmController> GetSelectedAlarms()
+    {
+        var dataGrid = Owner.Get<DataGrid>("AlarmsDataGrid");
+        var selectedItemsNodes = dataGrid.GetOptionalVariableValue("UISelectedItems") ?? throw new System.ArgumentException("UISelectedItems variable not found in AlarmsDataGrid");
+        var selectedItemsArray = (NodeId[]) selectedItemsNodes.Value;
+        if (selectedItemsArray == null || selectedItemsArray.Length == 0)
+        {
+            throw new System.ArgumentException("No alarms selected");
+        }
+        var selectedAlarms = new List<AlarmController>();
+        foreach (var nodeId in selectedItemsArray)
+        {
+            var alarm = GetAlarmFromRetainedAlarm(nodeId) ?? throw new System.ArgumentException("Alarm not found");
+            selectedAlarms.Add(alarm);
+        }
+        return selectedAlarms;
+    }
+
+    /// <summary>
+    /// Get the list of all alarms currently active.
+    /// </summary>
+    /// <returns></returns>
+    /// <exception cref="NullReferenceException"></exception>
+    private List<AlarmController> GetAllAlarms()
+    {
+        // Get the alarms server object
+        var retainedAlarmsObject = LogicObject.Context.GetNode(FTOptix.Alarm.Objects.RetainedAlarms);
+        // Get the object containing the actual list of alarms
+        var localizedAlarmsObject = retainedAlarmsObject.GetVariable("LocalizedAlarms");
+        var localizedAlarmsNodeId = (NodeId) localizedAlarmsObject.Value;
+        IUANode localizedAlarmsContainer = null;
+        if (localizedAlarmsNodeId?.IsEmpty == false)
+            localizedAlarmsContainer = LogicObject.Context.GetNode(localizedAlarmsNodeId);
+        if (localizedAlarmsContainer == null)
+        {
+            Log.Error("AlarmsObserverLogic", "LocalizedAlarms node not found");
+            throw new ArgumentException("Cannot find the LocalizedAlarms node");
+        }
+
+        // Cast all children to a List of AlarmController
+        return localizedAlarmsContainer.Children
+            .Select(child => GetAlarmFromRetainedAlarm(child.NodeId))
+            .Where(alarm => alarm != null)
+            .ToList();
+    }
+
 
     /// <summary>
     /// Retrieves the <see cref="AlarmController"/> associated with the given retained alarm ID.

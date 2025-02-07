@@ -43,7 +43,11 @@ Children:
         DataType: Size
         ModellingRule: Optional
         Value: 10.0
-      - Name: EventHandler1
+      - Name: Enabled
+        Type: BaseDataVariableType
+        DataType: Boolean
+        Value: true
+      - Name: MouseClickEventHandler1
         Type: EventHandler
         Children:
         - Name: ListenEventType
@@ -56,7 +60,7 @@ Children:
           - Name: MethodContainer1
             Type: BaseObjectType
             Children:
-            - Name: ObjectPointer
+            - Name: ns=2;ObjectPointer
               Type: NodePointer
               DataType: NodeId
               Children:
@@ -64,11 +68,6 @@ Children:
                 Type: PropertyType
                 DataType: NodeId
                 Value: "/Types/ObjectTypes/BaseObjectType"
-              - Name: NodeClass
-                Type: PropertyType
-                DataType: NodePointerNodeClass
-                ModellingRule: Optional
-                Value: 2
               - Name: DynamicLink
                 Type: DynamicLink
                 DataType: NodePath
@@ -79,21 +78,10 @@ Children:
                   DataType: DynamicLinkMode
                   ModellingRule: Optional
                   Value: 2
-            - Name: Method
+            - Name: ns=2;Method
               Type: BaseDataVariableType
               DataType: String
-              Value: "AckAlarmsWithMessage"
-            - Name: InputArguments
-              Type: BaseObjectType
-              Children:
-              - Name: ackMessage
-                Type: BaseDataVariableType
-                DataType: LocalizedText
-                Children:
-                - Name: DynamicLink
-                  Type: DynamicLink
-                  DataType: NodePath
-                  Value: "../../../../../../AcknowledgeMessage/Text"
+              Value: "AcknowledgeSelectedAlarmsWithDialog"
         - Name: EventArguments
           Type: MouseClickEvent
           Children:
@@ -121,10 +109,6 @@ Children:
           - Name: Severity
             Type: PropertyType
             DataType: UInt16
-      - Name: Enabled
-        Type: BaseDataVariableType
-        DataType: Boolean
-        Value: true
     - Name: AcknowledgeAllButton
       Type: Button
       Children:
@@ -153,7 +137,7 @@ Children:
         DataType: Size
         ModellingRule: Optional
         Value: 10.0
-      - Name: EventHandler1
+      - Name: MouseClickEventHandler1
         Type: EventHandler
         Children:
         - Name: ListenEventType
@@ -166,24 +150,28 @@ Children:
           - Name: MethodContainer1
             Type: BaseObjectType
             Children:
-            - Name: ObjectPointer
+            - Name: ns=2;ObjectPointer
               Type: NodePointer
               DataType: NodeId
-              Value: "/Objects/Commands/AlarmCommands"
               Children:
               - Name: Kind
                 Type: PropertyType
                 DataType: NodeId
                 Value: "/Types/ObjectTypes/BaseObjectType"
-              - Name: NodeClass
-                Type: PropertyType
-                DataType: NodePointerNodeClass
-                ModellingRule: Optional
-                Value: 2
-            - Name: Method
+              - Name: DynamicLink
+                Type: DynamicLink
+                DataType: NodePath
+                Value: "../../../../../AlarmGridLogic@NodeId"
+                Children:
+                - Name: Mode
+                  Type: BaseVariableType
+                  DataType: DynamicLinkMode
+                  ModellingRule: Optional
+                  Value: 2
+            - Name: ns=2;Method
               Type: BaseDataVariableType
               DataType: String
-              Value: "AcknowledgeAll"
+              Value: "AcknowledgeAllAlarmsWithDialog"
         - Name: EventArguments
           Type: MouseClickEvent
           Children:
@@ -239,7 +227,11 @@ Children:
         DataType: Size
         ModellingRule: Optional
         Value: 10.0
-      - Name: EventHandler1
+      - Name: Enabled
+        Type: BaseDataVariableType
+        DataType: Boolean
+        Value: true
+      - Name: MouseClickEventHandler1
         Type: EventHandler
         Children:
         - Name: ListenEventType
@@ -252,7 +244,7 @@ Children:
           - Name: MethodContainer1
             Type: BaseObjectType
             Children:
-            - Name: ObjectPointer
+            - Name: ns=2;ObjectPointer
               Type: NodePointer
               DataType: NodeId
               Children:
@@ -260,11 +252,6 @@ Children:
                 Type: PropertyType
                 DataType: NodeId
                 Value: "/Types/ObjectTypes/BaseObjectType"
-              - Name: NodeClass
-                Type: PropertyType
-                DataType: NodePointerNodeClass
-                ModellingRule: Optional
-                Value: 2
               - Name: DynamicLink
                 Type: DynamicLink
                 DataType: NodePath
@@ -275,21 +262,10 @@ Children:
                   DataType: DynamicLinkMode
                   ModellingRule: Optional
                   Value: 2
-            - Name: Method
+            - Name: ns=2;Method
               Type: BaseDataVariableType
               DataType: String
-              Value: "ConfirmAlarmsWithMessage"
-            - Name: InputArguments
-              Type: BaseObjectType
-              Children:
-              - Name: confirmMessage
-                Type: BaseDataVariableType
-                DataType: LocalizedText
-                Children:
-                - Name: DynamicLink
-                  Type: DynamicLink
-                  DataType: NodePath
-                  Value: "../../../../../../ConfirmMessage/Text"
+              Value: "ConfirmSelectedAlarmsWithDialog"
         - Name: EventArguments
           Type: MouseClickEvent
           Children:
@@ -317,10 +293,6 @@ Children:
           - Name: Severity
             Type: PropertyType
             DataType: UInt16
-      - Name: Enabled
-        Type: BaseDataVariableType
-        DataType: Boolean
-        Value: true
     - Name: ConfirmAllButton
       Type: Button
       Children:
@@ -349,7 +321,7 @@ Children:
         DataType: Size
         ModellingRule: Optional
         Value: 10.0
-      - Name: EventHandler1
+      - Name: MouseClickEventHandler1
         Type: EventHandler
         Children:
         - Name: ListenEventType
@@ -362,24 +334,28 @@ Children:
           - Name: MethodContainer1
             Type: BaseObjectType
             Children:
-            - Name: ObjectPointer
+            - Name: ns=2;ObjectPointer
               Type: NodePointer
               DataType: NodeId
-              Value: "/Objects/Commands/AlarmCommands"
               Children:
               - Name: Kind
                 Type: PropertyType
                 DataType: NodeId
                 Value: "/Types/ObjectTypes/BaseObjectType"
-              - Name: NodeClass
-                Type: PropertyType
-                DataType: NodePointerNodeClass
-                ModellingRule: Optional
-                Value: 2
-            - Name: Method
+              - Name: DynamicLink
+                Type: DynamicLink
+                DataType: NodePath
+                Value: "../../../../../AlarmGridLogic@NodeId"
+                Children:
+                - Name: Mode
+                  Type: BaseVariableType
+                  DataType: DynamicLinkMode
+                  ModellingRule: Optional
+                  Value: 2
+            - Name: ns=2;Method
               Type: BaseDataVariableType
               DataType: String
-              Value: "ConfirmAll"
+              Value: "ConfirmAllAlarmsWithDialog"
         - Name: EventArguments
           Type: MouseClickEvent
           Children:
@@ -525,6 +501,10 @@ Children:
               Type: DynamicLink
               DataType: NodePath
               Value: "../../../../AlarmsDataGrid/UISelectedItem@Pointer"
+      - Name: Visible
+        Type: BaseDataVariableType
+        DataType: Boolean
+        ModellingRule: Optional
     - Name: TimedShelveButton
       Type: Button
       Children:
@@ -649,11 +629,17 @@ Children:
               Type: DynamicLink
               DataType: NodePath
               Value: "../../../../AlarmsDataGrid/UISelectedItem@Pointer"
+      - Name: Visible
+        Type: BaseDataVariableType
+        DataType: Boolean
+        ModellingRule: Optional
     - Name: AlarmGridLogic
       Type: NetLogic
       Children:
       - Class: Method
-        Name: AckAlarmsWithMessage
+        Name: AcknowledgeAllAlarmsWithDialog
+      - Class: Method
+        Name: AckSelectedAlarmsWithMessage
         Children:
         - Name: ns=0;InputArguments
           Type: BaseVariableType
@@ -663,7 +649,33 @@ Children:
           ArrayDimensions: [0]
           Value: [{"TypeId":{"Id":296},"Body":{"Name":"ackMessage","DataType":{"Id":21},"ValueRank":-1,"ArrayDimensions":[],"Description":{"NamespaceIndex":-1,"LocaleId":"","Text":""}}}]
       - Class: Method
-        Name: ConfirmAlarmsWithMessage
+        Name: ConfirmAllAlarmsWithDialog
+      - Class: Method
+        Name: ConfirmSelectedAlarmsWithMessage
+        Children:
+        - Name: ns=0;InputArguments
+          Type: BaseVariableType
+          DataType: Argument
+          ReferenceType: HasProperty
+          ValueRank: OneDimension
+          ArrayDimensions: [0]
+          Value: [{"TypeId":{"Id":296},"Body":{"Name":"confirmMessage","DataType":{"Id":21},"ValueRank":-1,"ArrayDimensions":[],"Description":{"NamespaceIndex":-1,"LocaleId":"","Text":""}}}]
+      - Class: Method
+        Name: AcknowledgeSelectedAlarmsWithDialog
+      - Class: Method
+        Name: ConfirmSelectedAlarmsWithDialog
+      - Class: Method
+        Name: AckAllAlarmsWithMessage
+        Children:
+        - Name: ns=0;InputArguments
+          Type: BaseVariableType
+          DataType: Argument
+          ReferenceType: HasProperty
+          ValueRank: OneDimension
+          ArrayDimensions: [0]
+          Value: [{"TypeId":{"Id":296},"Body":{"Name":"ackMessage","DataType":{"Id":21},"ValueRank":-1,"ArrayDimensions":[],"Description":{"NamespaceIndex":-1,"LocaleId":"","Text":""}}}]
+      - Class: Method
+        Name: ConfirmAllAlarmsWithMessage
         Children:
         - Name: ns=0;InputArguments
           Type: BaseVariableType
@@ -1254,87 +1266,6 @@ Children:
       DataType: Size
       ModellingRule: Optional
       Value: 10.0
-    - Name: AcknowledgeMessage
-      Type: TextBox
-      Children:
-      - Name: Text
-        Type: BaseDataVariableType
-        DataType: LocalizedText
-      - Name: Width
-        Type: BaseVariableType
-        DataType: Size
-        ModellingRule: Optional
-        Value: 260.0
-      - Name: LeftMargin
-        Type: BaseVariableType
-        DataType: Size
-        ModellingRule: Optional
-      - Name: TopMargin
-        Type: BaseVariableType
-        DataType: Size
-        ModellingRule: Optional
-        Value: 280.0
-      - Name: PlaceholderText
-        Type: BaseDataVariableType
-        DataType: LocalizedText
-        ModellingRule: Optional
-        Value: {"LocaleId":"en-US","Text":"Acknowledge message"}
-      - Name: VerticalAlignment
-        Type: BaseVariableType
-        DataType: VerticalAlignment
-        ModellingRule: Optional
-        Value: 1
-      - Name: BottomMargin
-        Type: BaseVariableType
-        DataType: Size
-        ModellingRule: Optional
-        Value: 40.0
-      - Name: ValueChangeBehaviour
-        Type: BaseDataVariableType
-        DataType: ValueChangeBehaviour
-        ModellingRule: Optional
-        Value: 1
-    - Name: ConfirmMessage
-      Type: TextBox
-      Children:
-      - Name: Text
-        Type: BaseDataVariableType
-        DataType: LocalizedText
-      - Name: Width
-        Type: BaseVariableType
-        DataType: Size
-        ModellingRule: Optional
-        Value: 260.0
-      - Name: LeftMargin
-        Type: BaseVariableType
-        DataType: Size
-        ModellingRule: Optional
-        Value: 280.0
-      - Name: TopMargin
-        Type: BaseVariableType
-        DataType: Size
-        ModellingRule: Optional
-        Value: 280.0
-      - Name: PlaceholderText
-        Type: BaseDataVariableType
-        DataType: LocalizedText
-        ModellingRule: Optional
-        Value: {"LocaleId":"en-US","Text":"Confirm message"}
-      - Name: VerticalAlignment
-        Type: BaseVariableType
-        DataType: VerticalAlignment
-        ModellingRule: Optional
-        Value: 1
-      - Name: BottomMargin
-        Type: BaseVariableType
-        DataType: Size
-        ModellingRule: Optional
-        Value: 40.0
-      - Name: ValueChangeBehaviour
-        Type: BaseDataVariableType
-        DataType: ValueChangeBehaviour
-        ModellingRule: Optional
-        Value: 1
   - Name: Switch1
     Type: Switch
     Children:
@@ -1361,7 +1292,7 @@ Children:
       Type: BaseVariableType
       DataType: Size
       ModellingRule: Optional
-      Value: 460.0
+      Value: 10.0
     - Name: TopMargin
       Type: BaseVariableType
       DataType: Size
@@ -1403,7 +1334,7 @@ Children:
       Type: BaseVariableType
       DataType: Size
       ModellingRule: Optional
-      Value: 570.0
+      Value: 120.0
     - Name: TopMargin
       Type: BaseVariableType
       DataType: Size
@@ -1445,7 +1376,7 @@ Children:
       Type: BaseVariableType
       DataType: Size
       ModellingRule: Optional
-      Value: 680.0
+      Value: 230.0
     - Name: TopMargin
       Type: BaseVariableType
       DataType: Size
@@ -1491,17 +1422,52 @@ Children:
     - Name: Columns
       Type: BaseObjectType
       Children:
-      - Name: AckedState_Id
+      - Name: Time
         Type: DataGridColumn
         Children:
         - Name: Title
           Type: BaseDataVariableType
           DataType: LocalizedText
-          Value: {"LocaleId":"en-US","Text":"AckedState_Id"}
+          Value: {"NamespaceIndex":7,"TextId":"Timestamp"}
         - Name: Width
           Type: BaseDataVariableType
           DataType: Size
           Value: -1.0
+        - Name: Visible
+          Type: BaseDataVariableType
+          DataType: Boolean
+        - Name: HeaderAlignment
+          Type: BaseDataVariableType
+          DataType: TextHorizontalAlignment
+        - Name: ContentAlignment
+          Type: BaseVariableType
+          DataType: HorizontalAlignment
+        - Name: OrderBy
+          Type: BaseDataVariableType
+          DataType: NodePath
+          Value: "{Item}/Time"
+        - Name: DataItemTemplate
+          Type: DataGridLabelItemTemplate
+          Children:
+          - Name: Text
+            Type: BaseDataVariableType
+            DataType: LocalizedText
+            Children:
+            - Name: DynamicLink
+              Type: DynamicLink
+              DataType: NodePath
+              Value: "{Item}/Time"
+      - Name: LocalTime
+        Type: DataGridColumn
+        Children:
+        - Name: Title
+          Type: BaseDataVariableType
+          DataType: LocalizedText
+          Value: {"NamespaceIndex":7,"TextId":"Timestamp"}
+        - Name: Width
+          Type: BaseDataVariableType
+          DataType: Size
+          Value: 150.0
         - Name: Visible
           Type: BaseDataVariableType
           DataType: Boolean
@@ -1515,7 +1481,7 @@ Children:
         - Name: OrderBy
           Type: BaseDataVariableType
           DataType: NodePath
-          Value: "{Item}/AckedState_Id"
+          Value: "{Item}/LocalTime"
         - Name: DataItemTemplate
           Type: DataGridLabelItemTemplate
           Children:
@@ -1526,54 +1492,18 @@ Children:
             - Name: DynamicLink
               Type: DynamicLink
               DataType: NodePath
-              Value: "{Item}/AckedState_Id"
-      - Name: ConfirmedState_Id
-        Type: DataGridColumn
-        Children:
-        - Name: Title
-          Type: BaseDataVariableType
-          DataType: LocalizedText
-          Value: {"LocaleId":"en-US","Text":"ConfirmedState_Id"}
-        - Name: Width
-          Type: BaseDataVariableType
-          DataType: Size
-          Value: -1.0
-        - Name: Visible
-          Type: BaseDataVariableType
-          DataType: Boolean
-          Value: true
-        - Name: HeaderAlignment
-          Type: BaseDataVariableType
-          DataType: TextHorizontalAlignment
-        - Name: ContentAlignment
-          Type: BaseVariableType
-          DataType: HorizontalAlignment
-        - Name: OrderBy
-          Type: BaseDataVariableType
-          DataType: NodePath
-          Value: "{Item}/ConfirmedState_Id"
-        - Name: DataItemTemplate
-          Type: DataGridLabelItemTemplate
-          Children:
-          - Name: Text
-            Type: BaseDataVariableType
-            DataType: LocalizedText
-            Children:
-            - Name: DynamicLink
-              Type: DynamicLink
-              DataType: NodePath
-              Value: "{Item}/ConfirmedState_Id"
+              Value: "{Item}/LocalTime"
       - Name: ConditionName
         Type: DataGridColumn
         Children:
         - Name: Title
           Type: BaseDataVariableType
           DataType: LocalizedText
-          Value: {"LocaleId":"en-US","Text":"ConditionName"}
+          Value: {"LocaleId":"en-US","Text":"Alarm"}
         - Name: Width
           Type: BaseDataVariableType
           DataType: Size
-          Value: -1.0
+          Value: 100.0
         - Name: Visible
           Type: BaseDataVariableType
           DataType: Boolean
@@ -1605,11 +1535,11 @@ Children:
         - Name: Title
           Type: BaseDataVariableType
           DataType: LocalizedText
-          Value: {"LocaleId":"en-US","Text":"SourceName"}
+          Value: {"NamespaceIndex":7,"TextId":"SourceName"}
         - Name: Width
           Type: BaseDataVariableType
           DataType: Size
-          Value: -1.0
+          Value: 100.0
         - Name: Visible
           Type: BaseDataVariableType
           DataType: Boolean
@@ -1635,17 +1565,17 @@ Children:
               Type: DynamicLink
               DataType: NodePath
               Value: "{Item}/SourceName"
-      - Name: Time
+      - Name: Severity
         Type: DataGridColumn
         Children:
         - Name: Title
           Type: BaseDataVariableType
           DataType: LocalizedText
-          Value: {"LocaleId":"en-US","Text":"Time"}
+          Value: {"NamespaceIndex":7,"TextId":"Severity"}
         - Name: Width
           Type: BaseDataVariableType
           DataType: Size
-          Value: -1.0
+          Value: 64.0
         - Name: Visible
           Type: BaseDataVariableType
           DataType: Boolean
@@ -1659,7 +1589,7 @@ Children:
         - Name: OrderBy
           Type: BaseDataVariableType
           DataType: NodePath
-          Value: "{Item}/Time"
+          Value: "{Item}/Severity"
         - Name: DataItemTemplate
           Type: DataGridLabelItemTemplate
           Children:
@@ -1670,14 +1600,14 @@ Children:
             - Name: DynamicLink
               Type: DynamicLink
               DataType: NodePath
-              Value: "{Item}/Time"
+              Value: "{Item}/Severity"
       - Name: 'Message_en-US'
         Type: DataGridColumn
         Children:
         - Name: Title
           Type: BaseDataVariableType
           DataType: LocalizedText
-          Value: {"LocaleId":"en-US","Text":"Message_en-US"}
+          Value: {"NamespaceIndex":7,"TextId":"Message"}
         - Name: Width
           Type: BaseDataVariableType
           DataType: Size
@@ -1707,85 +1637,13 @@ Children:
               Type: DynamicLink
               DataType: NodePath
               Value: "{Item}/Message_en-US"
-      - Name: Severity
-        Type: DataGridColumn
-        Children:
-        - Name: Title
-          Type: BaseDataVariableType
-          DataType: LocalizedText
-          Value: {"LocaleId":"en-US","Text":"Severity"}
-        - Name: Width
-          Type: BaseDataVariableType
-          DataType: Size
-          Value: -1.0
-        - Name: Visible
-          Type: BaseDataVariableType
-          DataType: Boolean
-          Value: true
-        - Name: HeaderAlignment
-          Type: BaseDataVariableType
-          DataType: TextHorizontalAlignment
-        - Name: ContentAlignment
-          Type: BaseVariableType
-          DataType: HorizontalAlignment
-        - Name: OrderBy
-          Type: BaseDataVariableType
-          DataType: NodePath
-          Value: "{Item}/Severity"
-        - Name: DataItemTemplate
-          Type: DataGridLabelItemTemplate
-          Children:
-          - Name: Text
-            Type: BaseDataVariableType
-            DataType: LocalizedText
-            Children:
-            - Name: DynamicLink
-              Type: DynamicLink
-              DataType: NodePath
-              Value: "{Item}/Severity"
-      - Name: LocalTime
-        Type: DataGridColumn
-        Children:
-        - Name: Title
-          Type: BaseDataVariableType
-          DataType: LocalizedText
-          Value: {"LocaleId":"en-US","Text":"LocalTime"}
-        - Name: Width
-          Type: BaseDataVariableType
-          DataType: Size
-          Value: -1.0
-        - Name: Visible
-          Type: BaseDataVariableType
-          DataType: Boolean
-          Value: true
-        - Name: HeaderAlignment
-          Type: BaseDataVariableType
-          DataType: TextHorizontalAlignment
-        - Name: ContentAlignment
-          Type: BaseVariableType
-          DataType: HorizontalAlignment
-        - Name: OrderBy
-          Type: BaseDataVariableType
-          DataType: NodePath
-          Value: "{Item}/LocalTime"
-        - Name: DataItemTemplate
-          Type: DataGridLabelItemTemplate
-          Children:
-          - Name: Text
-            Type: BaseDataVariableType
-            DataType: LocalizedText
-            Children:
-            - Name: DynamicLink
-              Type: DynamicLink
-              DataType: NodePath
-              Value: "{Item}/LocalTime"
       - Name: 'Comment_en-US'
         Type: DataGridColumn
         Children:
         - Name: Title
           Type: BaseDataVariableType
           DataType: LocalizedText
-          Value: {"LocaleId":"en-US","Text":"Comment_en-US"}
+          Value: {"LocaleId":"en-US","Text":"Comment"}
         - Name: Width
           Type: BaseDataVariableType
           DataType: Size
@@ -1815,17 +1673,89 @@ Children:
               Type: DynamicLink
               DataType: NodePath
               Value: "{Item}/Comment_en-US"
+      - Name: AckedState_Id
+        Type: DataGridColumn
+        Children:
+        - Name: Title
+          Type: BaseDataVariableType
+          DataType: LocalizedText
+          Value: {"NamespaceIndex":7,"TextId":"Acknowledge"}
+        - Name: Width
+          Type: BaseDataVariableType
+          DataType: Size
+          Value: 64.0
+        - Name: Visible
+          Type: BaseDataVariableType
+          DataType: Boolean
+          Value: true
+        - Name: HeaderAlignment
+          Type: BaseDataVariableType
+          DataType: TextHorizontalAlignment
+        - Name: ContentAlignment
+          Type: BaseVariableType
+          DataType: HorizontalAlignment
+        - Name: OrderBy
+          Type: BaseDataVariableType
+          DataType: NodePath
+          Value: "{Item}/AckedState_Id"
+        - Name: DataItemTemplate
+          Type: DataGridLabelItemTemplate
+          Children:
+          - Name: Text
+            Type: BaseDataVariableType
+            DataType: LocalizedText
+            Children:
+            - Name: DynamicLink
+              Type: DynamicLink
+              DataType: NodePath
+              Value: "{Item}/AckedState_Id"
+      - Name: ConfirmedState_Id
+        Type: DataGridColumn
+        Children:
+        - Name: Title
+          Type: BaseDataVariableType
+          DataType: LocalizedText
+          Value: {"NamespaceIndex":7,"TextId":"Confirm"}
+        - Name: Width
+          Type: BaseDataVariableType
+          DataType: Size
+          Value: 64.0
+        - Name: Visible
+          Type: BaseDataVariableType
+          DataType: Boolean
+          Value: true
+        - Name: HeaderAlignment
+          Type: BaseDataVariableType
+          DataType: TextHorizontalAlignment
+        - Name: ContentAlignment
+          Type: BaseVariableType
+          DataType: HorizontalAlignment
+        - Name: OrderBy
+          Type: BaseDataVariableType
+          DataType: NodePath
+          Value: "{Item}/ConfirmedState_Id"
+        - Name: DataItemTemplate
+          Type: DataGridLabelItemTemplate
+          Children:
+          - Name: Text
+            Type: BaseDataVariableType
+            DataType: LocalizedText
+            Children:
+            - Name: DynamicLink
+              Type: DynamicLink
+              DataType: NodePath
+              Value: "{Item}/ConfirmedState_Id"
       - Name: EnabledState_Id
         Type: DataGridColumn
         Children:
         - Name: Title
           Type: BaseDataVariableType
           DataType: LocalizedText
-          Value: {"LocaleId":"en-US","Text":"EnabledState_Id"}
+          Value: {"LocaleId":"en-US","Text":"Enabled"}
         - Name: Width
           Type: BaseDataVariableType
           DataType: Size
-          Value: -1.0
+          Value: 64.0
         - Name: Visible
           Type: BaseDataVariableType
           DataType: Boolean
@@ -1947,7 +1877,7 @@ Children:
       - Name: DynamicLink
         Type: DynamicLink
         DataType: NodePath
-        Value: "../Columns/Time@NodeId"
+        Value: "../Columns/LocalTime@NodeId"
     - Name: SortOrder
       Type: BaseDataVariableType
       DataType: SortOrderEnum

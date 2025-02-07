@@ -216,12 +216,12 @@ Children:
     Type: BaseDataVariableType
     DataType: Size
     ModellingRule: Optional
-    Value: 840.0
+    Value: 1060.0
   - Name: Height
     Type: BaseDataVariableType
     DataType: Size
     ModellingRule: Optional
-    Value: 400.0
+    Value: 460.0
   - Name: Caption
     Type: BaseDataVariableType
     DataType: String
@@ -305,3 +305,4 @@ Children:
       ModellingRule: Optional
       Value: 3
 - File: Screens/Screens.yaml
+- File: Templates/Templates.yaml

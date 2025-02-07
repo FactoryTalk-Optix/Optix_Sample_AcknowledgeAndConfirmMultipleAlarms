@@ -65,6 +65,11 @@ Children:
   - Class: Reference
     Target: ns=13;i=154
     Direction: Forward
+  - Name: Message
+    Id: g=2ffd4403ba0b161a2c54642a1c455f82
+    Type: BaseDataVariableType
+    DataType: LocalizedText
+    Value: {"LocaleId":"en-US","Text":"Message of Alarm1"}
 - Name: DigitalAlarm2
   Id: g=cc93d2a7411d01b530c50f8d5ce01edf
   Type: OffNormalAlarmController
@@ -128,6 +133,11 @@ Children:
   - Class: Reference
     Target: ns=13;i=154
     Direction: Forward
+  - Name: Message
+    Id: g=25147e8f386c64fe927885c614e8081c
+    Type: BaseDataVariableType
+    DataType: LocalizedText
+    Value: {"LocaleId":"en-US","Text":"Message of Alarm2"}
 - Name: DigitalAlarm3
   Id: g=d9115e020cfabd5013868824fa8f139d
   Type: OffNormalAlarmController
@@ -191,3 +201,8 @@ Children:
   - Class: Reference
     Target: ns=13;i=154
     Direction: Forward
+  - Name: Message
+    Id: g=3f7dab97e2d701daff13574da7410b37
+    Type: BaseDataVariableType
+    DataType: LocalizedText
+    Value: {"LocaleId":"en-US","Text":"Message of Alarm3"}
